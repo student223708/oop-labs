@@ -35,18 +35,41 @@
             a = new() { Description = "Mice           are great", Size = 40 };
             Console.WriteLine(a.Info);
         }
+        static void TestDirections()
+        {
+            Creature c = new("Shrek", 7);
+            c.SayHi();
+
+            Console.WriteLine("\n* Up");
+            c.Go(Direction.Up);
+
+            Console.WriteLine("\n* Right, Left, Left, Down");
+            Direction[] directions = {
+        Direction.Right, Direction.Left, Direction.Left, Direction.Down
+    };
+            c.Go(directions);
+
+            Console.WriteLine("\n* LRL");
+            c.Go("LRL");
+
+            Console.WriteLine("\n* xxxdR lyyLTyu");
+            c.Go("xxxdR lyyLTyu");
+        }
+
 
         static void Main(string[] args)
         {
-            //Console.WriteLine("Starting Simulator!\n");
-            //Creature creature = new("ben dover 123456789012345678901234567890",0);
+            //HUD:
 
-            //Console.WriteLine(creature.Info);
-            //Console.WriteLine(creature.Level);
-            //creature.Upgrade();
-            //Console.WriteLine(creature.Level);
+            Console.WriteLine("Starting Simulator!\n");
+            
+            //TESTS:
+            
+            Creature creature = new("ben dover",6);
 
-            TestCreatures();
+            TestDirections();
+
+
 
         }
     }

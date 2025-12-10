@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Net.Security;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -49,13 +51,37 @@ namespace Simulator
             if (level < 10)level++;
         }
 
+
         public string Info =>  $"{Name} [{Level}]"; 
 
+
         public void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
+
 
         public static void Slogan()
         {
             Console.WriteLine("Creatures are great!");
+        }
+
+        public void Go(Direction direction)
+        {
+           
+            switch ((int)direction){
+                case 0: Console.WriteLine($"{Name} goes up.");break;
+                case 1: Console.WriteLine($"{Name} goes right."); break;
+                case 2: Console.WriteLine($"{Name} goes down."); break;
+                case 3: Console.WriteLine($"{Name} goes left."); break;
+            }
+         }
+
+        public void Go(Direction[] directions)
+        {
+            foreach (Direction direction in directions) Go(direction);
+        }
+
+        public void Go(string directions)
+        {
+            foreach (Direction direction in DirectionParser.Parse(directions)) Go(direction);
         }
 
         public Creature(string name, int level = 1)
