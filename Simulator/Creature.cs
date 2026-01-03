@@ -20,21 +20,8 @@ namespace Simulator
         public string Name
         {
             get => name;
-            init
-            {
-                name = value;
-                name = Regex.Replace(name, " +", " ");
-                name = name.Trim();
-
-                if (name.Length < 3)
-                    name = name.PadRight(3, '#');
-
-                if (name.Length > 25)
-                    name = name.Remove(25, name.Length - 25);
-
-                name = name.Trim();
-                name = char.ToUpper(name[0]) + name.Substring(1);
-            }
+            init => name = Validator.Shortener(value, 3, 25, '#');
+            
         }
         
         
@@ -42,12 +29,7 @@ namespace Simulator
         public int Level
         {
             get => level;
-            init
-            {
-                if (value <= 0) level = 1;
-                else if (value > 10) level = 10;
-                else level = value;
-            }
+            init => level = Validator.Limiter(value,1,10);
         }
 
         public abstract int Power
@@ -55,6 +37,8 @@ namespace Simulator
             get;
         }
 
+
+       
 
         public void Upgrade()
         {
@@ -113,12 +97,7 @@ namespace Simulator
         public int Agility
         {
             get => agility;
-            init
-            {
-                if (value < 0) agility = 0;
-                else if (value > 10) agility = 10;
-                else agility = value;
-            }
+            init => agility = Validator.Limiter(value, 0, 10);
         }
 
         private int stacks=0;
@@ -151,12 +130,7 @@ namespace Simulator
         public int Rage
         {
             get => rage;
-            init
-            {
-                if (value < 0) rage = 0;
-                else if (value > 10) rage = 10;
-                else rage = value;
-            }
+            init => rage = Validator.Limiter(value, 0, 10);
         }
 
         private int stacks=0;
