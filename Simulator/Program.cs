@@ -91,38 +91,55 @@ namespace Simulator
         }
         static void TestValidators()
         {
-            Creature c = new Elf() { Name = "   Shrek    ", Level = 20 };
-            c.SayHi();
-            c.Upgrade();
-            Console.WriteLine(c.Info);
+            //Creature c = new Elf() { Name = "   Shrek    ", Level = 20 };
+            //c.SayHi();
+            //c.Upgrade();
+            //Console.WriteLine(c.Info);
 
-            c = new Orc("  ", -5);
-            c.SayHi();
-            c.Upgrade();
-            Console.WriteLine(c.Info);
+            //c = new Orc("  ", -5);
+            //c.SayHi();
+            //c.Upgrade();
+            //Console.WriteLine(c.Info);
 
-            c = new Elf("  donkey ") { Level = 7 };
-            c.SayHi();
-            c.Upgrade();
-            Console.WriteLine(c.Info);
+            //c = new Elf("  donkey ") { Level = 7 };
+            //c.SayHi();
+            //c.Upgrade();
+            //Console.WriteLine(c.Info);
 
-            c = new Orc("Puss in Boots – a clever and brave cat.");
-            c.SayHi();
-            c.Upgrade();
-            Console.WriteLine(c.Info);
+            //c = new Orc("Puss in Boots – a clever and brave cat.");
+            //c.SayHi();
+            //c.Upgrade();
+            //Console.WriteLine(c.Info);
 
-            c = new Elf("a                            troll name", 5);
-            c.SayHi();
-            c.Upgrade();
-            Console.WriteLine(c.Info);
+            //c = new Elf("a                            troll name", 5);
+            //c.SayHi();
+            //c.Upgrade();
+            //Console.WriteLine(c.Info);
 
-            var a = new Animals() { Description = "   Cats " };
-            Console.WriteLine(a.Info);
+            //var a = new Animals() { Description = "   Cats " };
+            //Console.WriteLine(a.Info);
 
-            a = new() { Description = "Mice           are great", Size = 40 };
-            Console.WriteLine(a.Info);
+            //a = new() { Description = "Mice           are great", Size = 40 };
+            //Console.WriteLine(a.Info);
         }
-        
+        static void TestObjectsToString()
+        {
+            object[] myObjects = {
+        new Animals() { Description = "dogs"},
+        new Birds { Description = "  eagles ", Size = 10 },
+        new Elf("e", 15, -3),
+        new Orc("morgash", 6, 4)
+    };
+            Console.WriteLine("\nMy objects:");
+            foreach (var o in myObjects) Console.WriteLine(o);
+            /*
+                My objects:
+                ANIMALS: Dogs <3>
+                BIRDS: Eagles (fly+) <10>
+                ELF: E## [10][0]
+                ORC: Morgash [6][4]
+            */
+        }
 
 
         static void Main(string[] args)
@@ -133,18 +150,12 @@ namespace Simulator
 
             //TESTS:
 
-
-            //Elf e = new Elf("Kerillian", 2, -1);
-            //e.SayHi();
+            Creature e = new Elf("Kerillian", 2, -1);
 
 
-            //Orc o = new Orc("Gorbag", rage: 12, level: 2);
-            //o.SayHi();
+            Creature o = new Orc("Gorbag", rage: 12, level: 2);
 
-            
-            
-
-            TestValidators();
+            TestObjectsToString();
 
 
         }

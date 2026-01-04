@@ -37,20 +37,19 @@ namespace Simulator
             get;
         }
 
+        public abstract string Info
+        {
+            get;
+        }
 
-       
+        public override string ToString() => $"{(GetType().Name).ToUpper()}: {name} [{level}]";
 
         public void Upgrade()
         {
             if (level < 10)level++;
         }
 
-
-        public string Info =>  $"{Name} [{Level}]"; 
-
-
         public abstract void SayHi();
-
 
         public static void Slogan()
         {
@@ -90,74 +89,6 @@ namespace Simulator
         }
 
     }
-
-    public class Elf : Creature
-    {
-        private int agility;
-        public int Agility
-        {
-            get => agility;
-            init => agility = Validator.Limiter(value, 0, 10);
-        }
-
-        private int stacks=0;
-        public void Sing()
-        {
-            Console.WriteLine($"{Name} is singing.");
-
-            stacks++;
-            if ((stacks == 3) &&(agility < 10)) { agility++; stacks = 0; }
-            
-            
-        }
-        public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.");
-
-        public override int Power => 8 * Level + 2 * agility;
-
-        public Elf(string name, int level = 1, int agility = 0) : base(name, level)
-        {
-            Agility = agility;
-        }
-        public Elf()
-        {
-
-        }
-    }
-
-    public class Orc : Creature
-    {
-        private int rage;
-        public int Rage
-        {
-            get => rage;
-            init => rage = Validator.Limiter(value, 0, 10);
-        }
-
-        private int stacks=0;
-        public void Hunt()
-        {
-            Console.WriteLine($"{Name} is hunting.");
-            stacks++;
-            if ((stacks == 2) && (rage < 10)){ rage++; stacks = 0; }
-        }
-
-        public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
-        
-        public override int Power => 7*Level+3*rage;
-
-
-        public Orc(string name, int level = 1, int rage = 0) : base(name, level)
-        {
-            Rage = rage;
-        }
-
-        public Orc() 
-        {
-
-        }
-
-    }
-
-
+    
 
 }

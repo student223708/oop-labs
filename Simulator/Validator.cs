@@ -31,5 +31,11 @@ namespace Simulator
                 value = char.ToUpper(value[0]) + value.Substring(1);
                 return value;
             }
+
+            public static string Fly(bool canfly)
+            {
+                if (canfly) return "(fly+)";
+                else return "(fly-)";
+            }
          }
 }
