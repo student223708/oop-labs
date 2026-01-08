@@ -7,6 +7,7 @@ using System.Net.NetworkInformation;
 using System.Net.Security;
 using System.Numerics;
 using System.Reflection.Emit;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -32,15 +33,9 @@ namespace Simulator
             init => level = Validator.Limiter(value,1,10);
         }
 
-        public abstract int Power
-        {
-            get;
-        }
+        public abstract int Power { get; }
 
-        public abstract string Info
-        {
-            get;
-        }
+        public abstract string Info { get; }
 
         public override string ToString() => $"{(GetType().Name).ToUpper()}: {name} [{level}]";
 
@@ -49,32 +44,40 @@ namespace Simulator
             if (level < 10)level++;
         }
 
-        public abstract void SayHi();
+        public abstract string Greeting();
 
-        public static void Slogan()
-        {
-            Console.WriteLine("Creatures are great!");
-        }
+        public static string Slogan() => $"Creatures are great!";
 
-        public void Go(Direction direction)
+
+        public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
+
+        public string[] Go(Direction[] directions)
         {
-           
-            switch ((int)direction){
-                case 0: Console.WriteLine($"{Name} goes up.");break;
-                case 1: Console.WriteLine($"{Name} goes right."); break;
-                case 2: Console.WriteLine($"{Name} goes down."); break;
-                case 3: Console.WriteLine($"{Name} goes left."); break;
+
+            string[] array = new string[directions.Length];
+            int i = 0;
+
+            foreach (Direction direction in directions)
+            {
+                array[i] = Go(direction);
+                i++;
             }
-         }
 
-        public void Go(Direction[] directions)
-        {
-            foreach (Direction direction in directions) Go(direction);
+            return array;
         }
 
-        public void Go(string directions)
+        public string[] Go(string directions)
         {
-            foreach (Direction direction in DirectionParser.Parse(directions)) Go(direction);
+            string[] array = new string[directions.Length];
+            int i = 0;
+
+            foreach (Direction direction in DirectionParser.Parse(directions))
+            {
+                array[i] = Go(direction);
+                i++;
+            }
+
+            return array;
         }
 
         public Creature(string name, int level = 1)

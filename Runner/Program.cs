@@ -39,55 +39,56 @@ namespace Simulator
         }
         static void TestDirections()
         {
-        //    Creature c = new("Shrek", 7);
-        //    c.SayHi();
+            Creature c = new Orc("Shrek", 7);
+            Console.WriteLine(c.Greeting());
 
-        //    Console.WriteLine("\n* Up");
-        //    c.Go(Direction.Up);
+            Console.WriteLine("\n* Up");
+            Console.WriteLine(c.Go(Direction.Up));
 
-        //    Console.WriteLine("\n* Right, Left, Left, Down");
-        //    Direction[] directions = {
-        //    Direction.Right, Direction.Left, Direction.Left, Direction.Down
-        //};
-        //    c.Go(directions);
+            Console.WriteLine("\n* Right, Left, Left, Down");
+            Direction[] directions = {
+                Direction.Right, Direction.Left, Direction.Left, Direction.Down
+            };
 
-        //    Console.WriteLine("\n* LRL");
-        //    c.Go("LRL");
+            foreach (string direction in (c.Go(directions))) Console.WriteLine(direction);
 
-        //    Console.WriteLine("\n* xxxdR lyyLTyu");
-        //    c.Go("xxxdR lyyLTyu");
+            Console.WriteLine("\n* LRL");
+            foreach (string direction in (c.Go("LRL"))) Console.WriteLine(direction);
+
+            Console.WriteLine("\n* xxxdR lyyLTyu");
+            foreach (string direction in (c.Go("xxxdR lyyLTyu"))) Console.WriteLine(direction);
         }
         static void TestElfsAndOrcs()
         {
-            Console.WriteLine("HUNT TEST\n");
-            var o = new Orc() { Name = "Gorbag", Rage = 7 };
-            o.SayHi();
-            for (int i = 0; i < 10; i++)
-            {
-                o.Hunt();
-                o.SayHi();
-            }
+    //        Console.WriteLine("HUNT TEST\n");
+    //        var o = new Orc() { Name = "Gorbag", Rage = 7 };
+    //        o.SayHi();
+    //        for (int i = 0; i < 10; i++)
+    //        {
+    //            o.Hunt();
+    //            o.SayHi();
+    //        }
 
-            Console.WriteLine("\nSING TEST\n");
-            var e = new Elf("Legolas", agility: 2);
-            e.SayHi();
-            for (int i = 0; i < 10; i++)
-            {
-                e.Sing();
-                e.SayHi();
-            }
+    //        Console.WriteLine("\nSING TEST\n");
+    //        var e = new Elf("Legolas", agility: 2);
+    //        e.SayHi();
+    //        for (int i = 0; i < 10; i++)
+    //        {
+    //            e.Sing();
+    //            e.SayHi();
+    //        }
 
-            Console.WriteLine("\nPOWER TEST\n");
-            Creature[] creatures = {
-        o,
-        e,
-        new Orc("Morgash", 3, 8),
-        new Elf("Elandor", 5, 3)
-    };
-            foreach (Creature creature in creatures)
-            {
-                Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
-            }
+    //        Console.WriteLine("\nPOWER TEST\n");
+    //        Creature[] creatures = {
+    //    o,
+    //    e,
+    //    new Orc("Morgash", 3, 8),
+    //    new Elf("Elandor", 5, 3)
+    //};
+    //        foreach (Creature creature in creatures)
+    //        {
+    //            Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
+    //        }
         }
         static void TestValidators()
         {
@@ -124,14 +125,17 @@ namespace Simulator
         }
         static void TestObjectsToString()
         {
-            object[] myObjects = {
-        new Animals() { Description = "dogs"},
-        new Birds { Description = "  eagles ", Size = 10 },
-        new Elf("e", 15, -3),
-        new Orc("morgash", 6, 4)
-    };
+            object[] myObjects = 
+                {
+                new Animals() { Description = "dogs"},
+                new Birds { Description = "  eagles ", Size = 10 },
+                new Elf("e", 15, -3),
+                new Orc("morgash", 6, 4)
+                };
+
             Console.WriteLine("\nMy objects:");
             foreach (var o in myObjects) Console.WriteLine(o);
+
             /*
                 My objects:
                 ANIMALS: Dogs <3>
@@ -152,11 +156,9 @@ namespace Simulator
 
             Creature e = new Elf("Kerillian", 2, -1);
 
-
             Creature o = new Orc("Gorbag", rage: 12, level: 2);
 
-            TestObjectsToString();
-
+            TestDirections();
 
         }
     }
