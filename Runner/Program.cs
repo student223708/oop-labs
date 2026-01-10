@@ -155,11 +155,13 @@ namespace Simulator
             //TESTS:
 
             Creature e = new Elf("Kerillian", 2, -1);
-
             Creature o = new Orc("Gorbag", rage: 12, level: 2);
 
-            TestDirections();
+            SmallSquareMap map = new SmallSquareMap(10);
 
+
+
+            Console.WriteLine(map.Next(new Point(5,2), Direction.Up));
         }
     }
 }
