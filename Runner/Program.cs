@@ -153,26 +153,18 @@ namespace Simulator
             Creature e = new Elf("Kerillian", 2, -1);
             Creature o = new Orc("Gorbag", rage: 12, level: 2);
 
+            List <Creature> list = new List<Creature>();
+
+            list.Add(e);
+            list.Add(o);
+
             SmallSquareMap map = new SmallSquareMap(10);
 
             Point point = new Point(1,1);
             Point point2 = new Point(1,0);
 
 
-            map.Add(o, point);
-            map.Add(e, point2);
-            Console.WriteLine(o.Position);
-            o.Go(Direction.Down);
-            Console.WriteLine(o.Position);
-            o.Go(Direction.Down);
-            Console.WriteLine(o.Position);
-
-            Console.WriteLine(map.creaturesLocations[0]);
-
-            foreach (string item in map.At(point2))
-            {
-                Console.WriteLine(item);
-            }
+            Simulation s = new Simulation()
         }
     }
 }
