@@ -37,27 +37,27 @@ namespace Simulator
             //a = new() { Description = "Mice           are great", Size = 40 };
             //Console.WriteLine(a.Info);
         }
-        static void TestDirections()
-        {
-            Creature c = new Orc("Shrek", 7);
-            Console.WriteLine(c.Greeting());
+        //static void TestDirections()
+        //{
+        //    Creature c = new Orc("Shrek", 7);
+        //    Console.WriteLine(c.Greeting());
 
-            Console.WriteLine("\n* Up");
-            Console.WriteLine(c.Go(Direction.Up));
+        //    Console.WriteLine("\n* Up");
+        //    Console.WriteLine(c.Go(Direction.Up));
 
-            Console.WriteLine("\n* Right, Left, Left, Down");
-            Direction[] directions = {
-                Direction.Right, Direction.Left, Direction.Left, Direction.Down
-            };
+        //    Console.WriteLine("\n* Right, Left, Left, Down");
+        //    Direction[] directions = {
+        //        Direction.Right, Direction.Left, Direction.Left, Direction.Down
+        //    };
 
-            foreach (string direction in (c.Go(directions))) Console.WriteLine(direction);
+        //    foreach (string direction in (c.Go(directions))) Console.WriteLine(direction);
 
-            Console.WriteLine("\n* LRL");
-            foreach (string direction in (c.Go("LRL"))) Console.WriteLine(direction);
+        //    Console.WriteLine("\n* LRL");
+        //    foreach (string direction in (c.Go("LRL"))) Console.WriteLine(direction);
 
-            Console.WriteLine("\n* xxxdR lyyLTyu");
-            foreach (string direction in (c.Go("xxxdR lyyLTyu"))) Console.WriteLine(direction);
-        }
+        //    Console.WriteLine("\n* xxxdR lyyLTyu");
+        //    foreach (string direction in (c.Go("xxxdR lyyLTyu"))) Console.WriteLine(direction);
+        //}
         static void TestElfsAndOrcs()
         {
     //        Console.WriteLine("HUNT TEST\n");
@@ -148,10 +148,6 @@ namespace Simulator
 
         static void Main(string[] args)
         {
-            //HUD:
-
-            Console.WriteLine("Starting Simulator!\n");
-
             //TESTS:
 
             Creature e = new Elf("Kerillian", 2, -1);
@@ -159,9 +155,24 @@ namespace Simulator
 
             SmallSquareMap map = new SmallSquareMap(10);
 
+            Point point = new Point(1,1);
+            Point point2 = new Point(1,0);
 
 
-            Console.WriteLine(map.Next(new Point(5,2), Direction.Up));
+            map.Add(o, point);
+            map.Add(e, point2);
+            Console.WriteLine(o.Position);
+            o.Go(Direction.Down);
+            Console.WriteLine(o.Position);
+            o.Go(Direction.Down);
+            Console.WriteLine(o.Position);
+
+            Console.WriteLine(map.creaturesLocations[0]);
+
+            foreach (string item in map.At(point2))
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }

@@ -8,11 +8,12 @@ public class SmallTorusMapTests
     public void Constructor_ValidSize_ShouldSetSize()
     {
         // Arrange
-        int size = 10;
+        int sizeX = 10;
         // Act
-        var map = new SmallTorusMap(size);
+       
+        var map = new SmallTorusMap(sizeX);
         // Assert
-        Assert.Equal(size, map.Size);
+        Assert.Equal(sizeX, map.Square.X2);
     }
 
     [Theory]
@@ -20,12 +21,13 @@ public class SmallTorusMapTests
     [InlineData(21)]
     public void
         Constructor_InvalidSize_ShouldThrowArgumentOutOfRangeException
-        (int size)
-    {
+        (int sizeX)
+
+    {   
         // Act & Assert
         // The way to check if method throws anticipated exception:
         Assert.Throws<ArgumentOutOfRangeException>(() =>
-             new SmallTorusMap(size));
+             new SmallTorusMap(sizeX, 7));
     }
 
     [Theory]

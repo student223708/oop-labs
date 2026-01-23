@@ -22,15 +22,21 @@ namespace Simulator
         {
             get => name;
             init => name = Validator.Shortener(value, 3, 25, '#');
-            
         }
-        
+
+        public Map? map;
         
         private int level;
         public int Level
         {
             get => level;
             init => level = Validator.Limiter(value,1,10);
+        }
+        private Point position;
+        public  Point Position
+        {
+            get => position;
+            set => position = value;
         }
 
         public abstract int Power { get; }
@@ -48,36 +54,30 @@ namespace Simulator
 
         public static string Slogan() => $"Creatures are great!";
 
-
-        public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
-
-        public string[] Go(Direction[] directions)
+        public void Spawn(Point position, Map map)
         {
-
-            string[] array = new string[directions.Length];
-            int i = 0;
-
-            foreach (Direction direction in directions)
+            if (map.Exist(position))
             {
-                array[i] = Go(direction);
-                i++;
+                Position = position;
+                this.map = map;
             }
-
-            return array;
         }
 
-        public string[] Go(string directions)
+        public void Despawn()
         {
-            string[] array = new string[directions.Length];
-            int i = 0;
+            this.map = null;
+        }
 
-            foreach (Direction direction in DirectionParser.Parse(directions))
+        public void Go(Direction direction)
+        {
+            if (map == null) throw new ArgumentNullException("This Creature is not deployed");
+            if (map.Next(position ,direction).ToString == position.ToString) throw new ArgumentOutOfRangeException("Creature cannot move there");
+            else
             {
-                array[i] = Go(direction);
-                i++;
+                position = map.Next(position, direction);
+                map.creaturesLocations[map.creatures.IndexOf(Name)] = position.ToString();
             }
 
-            return array;
         }
 
         public Creature(string name, int level = 1)

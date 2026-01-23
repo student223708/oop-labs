@@ -16,11 +16,11 @@ namespace Simulator
         {
             switch (direction)
             {
-                case Direction.Up: return new Point(X, Y+1);
-                case Direction.Right: return new Point(X+1, Y);
-                case Direction.Down: return new Point(X, Y-1);
-                case Direction.Left: return new Point(X-1, Y);
-                default: return new Point(X, Y);
+                case Direction.Up:    return new Point(X, Y + 1);
+                case Direction.Right: return new Point(X + 1, Y);
+                case Direction.Down:  return new Point(X, Y - 1);
+                case Direction.Left:  return new Point(X - 1, Y);
+                default:              return new Point(X, Y);
             }
         }
 
@@ -29,11 +29,11 @@ namespace Simulator
         {
             switch (direction)
             {
-                case Direction.Up: return new Point(X + 1, Y + 1);
+                case Direction.Up:    return new Point(X + 1, Y + 1);
                 case Direction.Right: return new Point(X + 1, Y - 1);
-                case Direction.Down: return new Point(X - 1, Y - 1);
-                case Direction.Left: return new Point(X - 1, Y + 1);
-                default: return new Point(X, Y);
+                case Direction.Down:  return new Point(X - 1, Y - 1);
+                case Direction.Left:  return new Point(X - 1, Y + 1);
+                default:              return new Point(X, Y);
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,71 @@ namespace Simulator
     /// </summary>
     public abstract class Map
     {
+        public List<string> creatures = new();
+        public List<string> creaturesLocations = new();
+        public List<string> animals = new();
+        public List<string> animalsLocations = new();
+
+        public void Add(Creature creature, Point point)
+        {
+            creatures.Add(creature.Name);
+            creature.Spawn(point, this);
+            creaturesLocations.Add(creature.Position.ToString());
+        }
+
+        public void Remove(Creature creature)
+        {
+            creaturesLocations.RemoveAt(creatures.IndexOf(creature.Name));
+            creature.Despawn();
+            creatures.Remove(creature.Position.ToString());
+            
+        }
+
+        public void Add(Animals animal, Point point)
+        {
+            animals.Add(animal.Description);
+            animalsLocations.Add(animal.Description);
+            animal.Spawn(point, this);
+        }
+
+        public void Remove(Animals animal)
+        {
+            animalsLocations.RemoveAt(animals.IndexOf(animal.Description));
+            animals.Remove(animal.Description);
+            animal.Despawn();
+        }
+
+        public void Move(Creature creature, Direction direction)
+        {
+            creature.Go(direction);
+
+        }
+
+        public void Move(Animals animal, Direction direction)
+        {
+            animal.Position.Next(direction);
+        }
+
+        public List<string> At(Point point)
+        {
+            List<string> contain = new();
+
+            foreach(string creature in creatures)
+            {
+                if (point.ToString() == creaturesLocations[creatures.IndexOf(creature)]) contain.Add(creature);
+            }
+
+            foreach (string animal in animals)
+            {
+                if (point.ToString() == animalsLocations[animals.IndexOf(animal)]) contain.Add(animal);
+            }
+
+            return contain;
+        }
+
+        public List<string> At(int x, int y) => At(new Point(x, y));
+
+        public Rectangle Square;
         /// <summary>
         /// Check if give point belongs to the map.
         /// </summary>
@@ -34,110 +100,16 @@ namespace Simulator
         /// <param name="d">Direction.</param>
         /// <returns>Next point.</returns>
         public abstract Point NextDiagonal(Point p, Direction d);
-    }
 
-    public class SmallSquareMap : Map
-    {
-        public readonly int Size;
-        public Rectangle Square;
-
-        public override bool Exist(Point p) => Square.Contains(p);
-
-        public override Point Next(Point p, Direction d)
+        public Map(int SizeX, int SizeY)
         {
-            if (Exist(p.Next(d))) return p.Next(d);
-            else return p;
-        }
-
-        public override Point NextDiagonal(Point p, Direction d)
-        {
-            if (Exist(p.NextDiagonal(d))) return p.NextDiagonal(d);
-            else return p;
-        }
-
-        public SmallSquareMap(int size) 
-        {
-            if (size < 5 || size > 20) throw new ArgumentOutOfRangeException("Invalid Map Size");
-            else
-            {
-                Size = size;
-                Square = new(0,0, size - 1, size - 1);
-            }
+            if (SizeX < 5 || SizeY < 5) { throw new ArgumentOutOfRangeException("Invalid Map Size"); }
+            else Square = new(0, 0, SizeX - 1, SizeY - 1);
         }
     }
 
-    public class SmallTorusMap : Map
-    {
-
-        public readonly int Size;
-        public Rectangle Square;
-
-        public override bool Exist(Point p) => Square.Contains(p);
-
-        public override Point Next(Point p, Direction d)
-        {
-            if (Exist(p.Next(d))) return p.Next(d);
-            else
-            {
-                switch(d)
-                {
-                    case Direction.Up: return new Point(p.X, 0);
-                    case Direction.Right: return new Point(0, p.Y);
-                    case Direction.Down: return new Point(p.X, Size-1);
-                    case Direction.Left: return new Point(Size-1, p.Y);
-                    default: return p;
-                }
-            }
-        }
-
-        public override Point NextDiagonal(Point p, Direction d)
-        {
-            if (Exist(p.NextDiagonal(d))) return p.NextDiagonal(d);
-            else
-            {
-                switch (d)
-                {
-                    case Direction.Up:
-                    {
-                        if (p.X == Size - 1 && p.Y == Size - 1) return p = new(0, 0);
-                        if (p.X == Size - 1) return p = new (0, p.Y+1);
-                        if (p.Y == Size - 1) return p = new (p.X+1, 0);
-                        return p;
-                    }
-                    case Direction.Right: 
-                    {
-                         if (p.X == Size - 1 && p.Y == 0) return p = new(0, Size-1);
-                         if (p.X == Size - 1) return p = new(0, p.Y - 1);
-                         if (p.Y == 0) return p = new(p.X + 1, Size - 1);
-                         return p;
-                        }
-                    case Direction.Down: 
-                    {
-                        if (p.X == 0 && p.Y == 0) return p = new(Size - 1, Size - 1);
-                        if (p.X == 0) return p = new (Size - 1, p.Y - 1);
-                        if (p.Y == 0) return p = new (p.X - 1, Size - 1);
-                        return p;
-                    }
-                    case Direction.Left: 
-                    {
-                        if (p.X ==0 && p.Y == Size - 1) return p = new(Size - 1, 0);
-                        if (p.X == 0) return p = new (Size - 1, p.Y + 1);
-                        if (p.Y == Size - 1) return p = new (p.X - 1, 0);
-                        return p;
-                    }
-                    default: return p;
-                }
-            }
-        }
-
-        public SmallTorusMap (int size)
-        {
-            if (size < 5 || size > 20) throw new ArgumentOutOfRangeException("Invalid Map Size");
-            else
-            {
-                Size = size;
-                Square = new(0, 0, size - 1, size - 1);
-            }
-        }
-    }
+    
+    
+    
 }
+
